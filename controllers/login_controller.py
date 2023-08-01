@@ -5,6 +5,7 @@ from flask_jwt_extended import create_access_token
 from flask_login import LoginManager, UserMixin, login_user, login_required
 from models import user as u
 
+ 
 def login(request, mysql):
     data_response = {}
     email = request.json.get('email', None)
@@ -28,10 +29,7 @@ def login(request, mysql):
             session['username'] = username
             access_token = create_access_token(identity=user_id)
             data_response["loggedin"] = True
-            data_response["token"] = access_token
-
-            user = u.User(user_id, username, email)
-            login_user(user)
+            data_response["token"] = access_token 
         else:
             data_response["loggedin"] = False
             data_response["token"] = ""

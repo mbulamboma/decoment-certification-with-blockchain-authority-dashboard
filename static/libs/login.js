@@ -1,11 +1,13 @@
 // Get the form element
 const form = document.getElementById('postLoginForm');
+const loading = document.getElementById('loading');
 
 // Add event listener for form submission
 form.addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission
     var email = document.getElementById("username").value;
     var password = document.getElementById("password").value;
+    loading.classList.remove('d-none');
 
     var data = {
         "email": email,
@@ -28,8 +30,11 @@ form.addEventListener('submit', function (event) {
         }
     }) // Assuming the response is in JSON format
     .then(data => {
-        // Handle the response data here
+        loading.classList.add('d-none');
         if(data.loggedin == true){
+            // save token
+            
+            localStorage.setItem('token', data.token);
              //The user loggedIn successfully
              var currentUrl = window.location.href;
              var nextParamRegex = /[\?&]next=([^&]+)/;
@@ -53,8 +58,9 @@ form.addEventListener('submit', function (event) {
         }
         console.log(data);
     })
-    .catch(error => {
-        // Handle any errors that occurred during the request
+    .catch(error => { 
+        // an error occured
+        loading.classList.add('d-none');
         console.error('Error:', error);
         document.getElementById("errorMessage").textContent = "An error occured, retry later ..."
     });

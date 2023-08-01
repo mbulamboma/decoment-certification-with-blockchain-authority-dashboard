@@ -5,7 +5,7 @@ def login_required(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         # Check if the 'loggedin' key exists in session and is True
-        if session.get('loggedin') is True:
+        if 'loggedin' in session and session.get('loggedin') is True:
             return func(*args, **kwargs)
         else:
             # If not logged in, redirect to the '/login' URL with 'next' parameter
@@ -17,7 +17,7 @@ def redirect_cpanel_if_loggedIn(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         # Check if the 'loggedin' key exists in session and is True
-        if session.get('loggedin') is True:
+        if 'loggedin' in session and  session.get('loggedin') is True:
             return redirect(url_for('cpanel'))
         else:
             return func(*args, **kwargs) 

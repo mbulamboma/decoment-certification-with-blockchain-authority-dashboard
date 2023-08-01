@@ -1,23 +1,27 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_cors import CORS
 from flask_login import login_required, LoginManager, current_user, login_user
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 import os
 import json
 from utils import decorators as dc, dbconnect as db
 from controllers import login_controller as loginctr
 import mysql.connector
-import hashlib
- 
+import hashlib 
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 # Application set up
 app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "*"}}) #allow any source
 app.secret_key = os.environ.get("APP_SECRET_KEY")
 
-#jwt manager
+#jwt configs
 app.config["JWT_SECRET_KEY"]  = os.environ.get("APP_SECRET_KEY")
-jwt = JWTManager(app)
+app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+app.config['JWT_ACCESS_COOKIE_PATH'] = '/'
+app.config['JWT_COOKIE_CSRF_PROTECT'] = False  
+jwt = JWTManager(app) 
 
 
 # Database config
@@ -28,16 +32,20 @@ app.config['MYSQL_DB'] = os.environ.get("MYSQL_DB")
 
 # Intialize MySQL
 isConnected, mysql = db.connect_to_mysql(app, mysql)
-
+#test sql connection
 if isConnected:
     print("Sql server connected")
 else:
     print(mysql)
-
-# Login Management
-login = LoginManager(app)
-login.init_app(app)
-login.login_view = 'login'
+  
+#limit brute force
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["2 per minute", "1 per second"],
+    storage_uri="memory://",
+    strategy="moving-window", # or "fixed-window"
+)
 
 
 @app.route('/') 
@@ -58,19 +66,25 @@ def login():
 
 
 @app.route('/logout',methods = ['GET'])
+@jwt_required()
 def logout():
+    current_user = get_jwt_identity()
     session.pop('loggedin', False)
     session.pop('user_id', None)
     session.pop('user_email', None)
     session.pop('username', None) 
+    return redirect(url_for('login'))
 
 
 @app.route('/authenticate',methods = ['POST'])
+@limiter.limit("50 per day")
 def authenticate(): 
     try:
-        response = loginctr.login(request, mysql) 
-        print(response)
-        return jsonify(response)
+        jResponse = loginctr.login(request, mysql) 
+        print(jResponse)
+        response = jsonify(jResponse)
+        response.set_cookie('access_token_cookie', value=jResponse['token'], httponly=True)  # Set HttpOnly cookie
+        return response
     except Exception as e:
         print("An error occurred:", e)
         return jsonify({"loggedin": False, "message": "Service temporary unavailable"})
