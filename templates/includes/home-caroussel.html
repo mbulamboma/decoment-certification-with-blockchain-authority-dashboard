@@ -1,0 +1,42 @@
+   
+<div id="carouselExampleIndicators" style="background: #191c24;" class="carousel slide" data-ride="carousel" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="{{ url_for('static',filename='img/person1.jpg') }}" alt="First slide"> 
+        <div class="overlay"></div>
+        <div class="carousel-caption d-none d-md-block carousel-text-position">
+            <h5 class="h1 text-center">A Document Certification Platform<br /> Using Blockchain Technology</h5>
+            <br />
+            <p class="text-left h5">Request Certification of your documents just with few clicks </p>
+            <br />
+            <a class="btn btn-success p-3" href="/request">Request a certification now</a>
+          </div>
+      </div> 
+      
+      <div class="carousel-item">
+        <img class="d-block w-100" src="{{ url_for('static',filename='img/person2.jpg') }}" alt="Second slide"> 
+        <div class="overlay"></div>
+        <div class="carousel-caption d-none d-md-block carousel-text-position">
+            <h5 class="h1">Verify documents authenticity </h5>
+            <p class="h5">You can use the type the hash provided in the document or use the mobile application to check the documents</p>
+            <br />
+            <a class="btn btn-success p-3" href="/verify">Verify a document Now</a>
+          </div>
+      </div> 
+    </div>
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  
+    

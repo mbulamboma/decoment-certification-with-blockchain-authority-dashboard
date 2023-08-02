@@ -42,7 +42,7 @@ else:
 limiter = Limiter(
     get_remote_address,
     app=app,
-    default_limits=["2 per minute", "1 per second"],
+    default_limits=["60 per minute", "1 per second"],
     storage_uri="memory://",
     strategy="moving-window", # or "fixed-window"
 )
@@ -50,7 +50,7 @@ limiter = Limiter(
 
 @app.route('/') 
 def home():
-    return "hello"
+     return render_template('pages/home.html')
 
 
 @app.route('/cpanel') 
@@ -65,10 +65,15 @@ def login():
     return render_template('pages/login.html')
 
 
-@app.route('/logout',methods = ['GET'])
+@app.route('/statistics', methods = ['GET'])
 @jwt_required()
-def logout():
-    current_user = get_jwt_identity()
+def getStatistics():
+    return jsonify({'message': "statistics gotten"})
+
+
+
+@app.route('/logout',methods = ['GET'])
+def logout(): 
     session.pop('loggedin', False)
     session.pop('user_id', None)
     session.pop('user_email', None)

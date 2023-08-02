@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" /> 
+    
+    <title>Certification | National Certification Center</title>
+    
+  </head>
+  <body>
+    {% include 'includes/header.html' %}
+    {% include 'includes/home-caroussel.html' %}
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12 col-md-3 mb-2">
+                <span class="h6">SECURE</span>
+                <p>
+                    Your documents are protected with the highest level of security
+                    using blockchain technology, ensuring that they 
+                    cannot be tampered with or altered in any way.
+                </p>
+            </div>
+            <div class="col-sm-12 col-md-3 mb-2">
+                <span class="h6">INNOVATIVE</span>
+                <p>
+                    We use Blockchain to provide a effective 
+                    new way to certify your documents,
+                    giving you peace of mind that you are 
+                    using the most advanced solution available.
+                </p>
+            </div>
+            <div class="col-sm-12 col-md-3 mb-2">
+                <span class="h6">TRUSTWORTHY</span>
+                <p>
+                    We provide accurate and 
+                    verifiable certification of your documents, 
+                    ensuring that they are recognized and accepted by any 
+                    organization or institution in the world.
+                </p>
+            </div>
+            <div class="col-sm-12 col-md-3 mb-2">
+                <span class="h6">USER-FRIENDLY</span>
+                <p>
+                    Our website is designed to be easy and intuitive to use, 
+                    so you can quickly and easily certify your documents without any hassle or confusion.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}" ></script>
+    <script src="{{ url_for('static',filename='js/particles.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/app.js') }}"></script> 
+    <script defer src="{{ url_for('static',filename='libs/login.js') }}"></script>
+  </body>
+</html>
