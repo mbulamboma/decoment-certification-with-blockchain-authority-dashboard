@@ -175,7 +175,7 @@
         </div>
 
         <div class="text-center">
-            <a class="btn btn-success p-3" href="/verify">Verify a document now</a>
+            <a class="btn btn-success p-2" href="/verify">Verify a document now</a>
         </div>
     </div>
 
@@ -195,16 +195,8 @@
             </div>
         </div>
     </div>
-
-    <footer class="bg-dark p-5 text-white">
-        <div class="divider mt-0"></div> 
-        <div class="container">
-            <div class="text-center"><span class="h3">CONTACT US</span></div>
-            <div class="text-center">
-                <small class="text-white">We are available 24h/7</small>
-            </div>
-        </div>
-    </footer>
+    
+    {% include 'includes/footer.html' %}
     
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}" ></script>
