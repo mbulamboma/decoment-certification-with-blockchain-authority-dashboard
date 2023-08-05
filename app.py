@@ -61,7 +61,7 @@ def home():
 @app.route('/cpanel') 
 @dc.login_required
 def cpanel():
-    return "Control panel"
+    return render_template('pages/dashboard.html')
 
 
 @app.route('/login')

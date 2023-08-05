@@ -1,0 +1,71 @@
+<style>
+    .sidebar {
+      height: 100vh;
+      background-color: #343a40;
+      padding-top: 20px;
+    }
+  
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 10px;
+      padding-left: 30px;
+      border-radius: 20px;
+      text-decoration: none;
+    }
+  
+    .sidebar a.active {
+      background-color: black;
+    }
+  
+    .sidebar a:hover {
+      background-color: #555;
+    }
+  
+    /* To make the sidebar fixed */
+    @media (min-width: 768px) {
+      .fixed-sidebar {
+        position: fixed;
+      }
+    }
+  
+    /* User picture and name */
+    .user-profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      width: 100%;  
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+  
+    .user-profile img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  
+    .user-name {
+      margin-left: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
+  
+  <!-- Sidebar -->
+  <div class="col-md-3 m-0 p-0 col-lg-2 fixed-sidebar">
+    <div class="sidebar">
+      <div class="user-profile">
+        <img src="{{ url_for('static',filename='img/logo-rdc.png') }}" alt="User profile picture">
+        <span class="user-name">MBULA MBOMA</span>
+      </div>
+      <hr class="m-3"/>
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Certificates</a>
+      <a href="#">Transcripts</a>
+      <a href="#">Verification</a>
+      <a href="#">Settings</a>
+    </div>
+  </div>
+  

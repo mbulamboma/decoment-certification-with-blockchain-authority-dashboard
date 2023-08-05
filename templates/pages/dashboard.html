@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet" /> 
+    
+    <title>Dashboard | National Certification Center</title>
+    <style>
+      body{
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body> 
+  <div class="row m-0 p-0"> 
+    
+      {% include 'includes/dash-sidebar.html' %}
+      <!-- Main Content -->
+      <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2 p-0">
+        
+        <nav class="navbar mb-0 navbar-dark bg-dark">
+          <div class="container">
+            <a class="navbar-brand" href="#">Issuer Dashboard</a>
+            <a href="/logout" class="btn btn-outline-danger">
+               Logout
+            </a>
+          </div>
+        </nav>
+        
+        <div class="container">
+            <!-- Your main content goes here -->
+          <h1>Welcome to the Academic Documents Dashboard</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+          
+        </div>
+        {% include 'includes/footer.html' %}
+      </div>
+  </div>
+    
+   
+    
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}" ></script>
+    <script src="{{ url_for('static',filename='js/particles.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/app.js') }}"></script> 
+    <script defer src="{{ url_for('static',filename='libs/login.js') }}"></script>
+  </body>
+</html>
