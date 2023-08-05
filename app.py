@@ -61,7 +61,12 @@ def home():
 @app.route('/cpanel') 
 @dc.login_required
 def cpanel():
-    return render_template('pages/dashboard.html')
+    username = session.get('username')
+    if username is not None:
+        return render_template('pages/dashboard.html', username=username.upper())
+    else:
+        return render_template('pages/dashboard.html')
+    
 
 
 @app.route('/login')
