@@ -1,0 +1,77 @@
+<div class="container mb-2 mt-4">
+    <div class="text-white bg-dark rounded">
+      <div class="card-header p-3 h5">
+        Document Requests
+      </div>
+      <div class="card-body">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="search-btn">
+          <button class="btn btn-success" type="button" id="search-btn">Search</button>
+        </div>
+        <table class="table table-bordered table-dark table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Full name</th>
+              <th scope="col">student Id</th>
+              <th scope="col">Acad. year</th>
+              <th scope="col">class</th>
+              <th scope="col">Document</th>
+              <th scope="col">cost</th>
+              <th scope="col">paiement stat.</th>
+              <th scope="col">date</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mbula Mboma jean Gilbert</td>
+              <td>AC2541DVS</td>
+              <td>2022-2023</td>
+              <td>2ième technique</td>
+              <td>Rélévé de côte</td>
+              <td>$10</td>
+              <td class="text-center">
+                <span class="bg-success rounded p-2 ps-3 pe-3 small">paied</span>
+              </td>
+              <td>2023-08-05</td>
+              <td><a href="/cpanel/view-request/25" class="btn btn-outline-light">view</a></td>
+            </tr> 
+            <tr>
+              <td>Yedida Mbula</td>
+              <td>AC2541DVS</td>
+              <td>2022-2023</td>
+              <td>2ième technique</td>
+              <td>Rélévé de côte</td>
+              <td>$10</td>
+              <td class="text-center">
+                <span class="bg-danger rounded p-2 ps-3 pe-3 small">not paied yet</span>
+              </td>
+              <td>2023-08-05</td>
+              <td><a href="/cpanel/view-request/25" class="btn btn-outline-light">view</a></td>
+            </tr> 
+            <!-- Add more rows here as needed -->
+          </tbody>
+        </table>
+
+        <nav aria-label="Page navigation ">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item active" aria-current="page">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <!-- Add more page items as needed -->
+  
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div> 
+  </div>
+
+</div>

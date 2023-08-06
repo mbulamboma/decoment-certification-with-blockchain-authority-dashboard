@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet" /> 
+    <link href="{{ url_for('static',filename='libs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" /> 
+    
+    <title>Document Requests | National Certification Center</title>
+    <style>
+      body{
+        background-color: black;
+        color: white;
+      }
+      .text-whitesmoke{
+        color: rgb(167, 167, 167);
+      }
+    </style>
+  </head>
+  <body> 
+  <div class="row m-0 p-0"> 
+    
+      <!--Side bard-->
+      {% include 'includes/dash-sidebar.html' %}
+
+      <!-- Main Content -->
+      <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2 p-0"> 
+        <nav class="navbar mb-0 navbar-dark bg-dark">
+          <div class="container">
+            <a class="navbar-brand" href="#">Document Certification Requests</a>
+            <a href="/logout" class="btn btn-outline-danger">
+               Logout
+            </a>
+          </div>
+        </nav>
+        
+        <!--Statistics-->
+        <div class="container pt-3"> 
+          {% include 'includes/requests/statitstics.html' %} 
+        </div>
+
+        <!--10 Latest requests-->
+        {% include 'includes/requests/req-table.html' %} 
+        
+
+        <br />
+        <!--footer-->
+        {% include 'includes/footer.html' %}
+      </div>
+    </div>
+    
+   
+    
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}" ></script>
+    <script src="{{ url_for('static',filename='js/particles.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/app.js') }}"></script> 
+    <script defer src="{{ url_for('static',filename='libs/login.js') }}"></script>
+  </body>
+</html>

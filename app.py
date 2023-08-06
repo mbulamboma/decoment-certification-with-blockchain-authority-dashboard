@@ -83,9 +83,15 @@ def certificates():
 def requests():
     username = session.get('username')
     if username is not None:
-        return render_template('pages/dashboard.html', username=username.upper())
+        return render_template('pages/dash-requests.html', username=username.upper())
     else:
-        return render_template('pages/dashboard.html')
+        return render_template('pages/dash-requests.html')
+
+
+@app.route('/cpanel/view-request/<id>')
+def view_request(id):
+    return f'Hello, {id}!'
+
         
 @app.route('/cpanel/verifications') 
 @dc.login_required
