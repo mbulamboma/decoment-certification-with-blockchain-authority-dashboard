@@ -90,7 +90,11 @@ def requests():
 
 @app.route('/cpanel/view-request/<id>')
 def view_request(id):
-    return f'Hello, {id}!'
+    username = session.get('username')
+    if username is not None:
+        return render_template('pages/dash-view-request.html', username=username.upper())
+    else:
+        return render_template('pages/dash-view-request.html')
 
         
 @app.route('/cpanel/verifications') 

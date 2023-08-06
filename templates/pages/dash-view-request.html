@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet" /> 
+    <link href="{{ url_for('static',filename='libs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" /> 
+    
+    <title>Document Requests | National Certification Center</title>
+    <style>
+      body{
+        background-color: black;
+        color: white;
+      }
+      .text-whitesmoke{
+        color: rgb(167, 167, 167);
+      }
+    </style>
+  </head>
+  <body> 
+  <div class="row m-0 p-0"> 
+    
+      <!--Side bard-->
+      {% include 'includes/dash-sidebar.html' %}
+
+      <!-- Main Content -->
+      <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2 p-0"> 
+        <nav class="navbar mb-0 navbar-dark bg-dark">
+          <div class="container">
+            <a class="navbar-brand" href="#">Request Information</a>
+            <a href="/logout" class="btn btn-outline-danger">
+               Logout
+            </a>
+          </div>
+        </nav>
+        <div class="container mt-3"> 
+          <div class="row ">
+            <div class="col-sm-12 col-md-6">
+                <div class="text-white bg-dark rounded">
+                    <div class="card-header p-3">
+                      Request Details
+                      <span class="float-end bg-warning rounded ps-2 pe-2 small">pending</span>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-6"> 
+                            <p class="small mb-0 text-whitesmoke">Student name:</p>
+                            <h5 class="card-title h6">MBULA MBOMA JEAN GILBERT</h5>
+                            <hr class="bg-gray" /> 
+                            <p class="small mb-0 text-whitesmoke">Academic year:</p>
+                            <h5 class="card-title h6">2022-2023</h5>
+                            <hr class="bg-gray" />
+                            <p class="small mb-0 text-whitesmoke">Student classe:</p>
+                            <h5 class="card-title h6">2e technique</h5>
+                            <hr class="bg-gray" />
+                            <p class="small mb-0 text-whitesmoke">Student Option:</p>
+                            <h5 class="card-title h6">informatique</h5> 
+                        </div>
+                        <div class="col-6"> 
+                            
+                            <p class="small mb-0 text-whitesmoke">Document Requested:</p>
+                            <h5 class="card-title h6 text-danger">Rélévé de côte</h5>
+                            <hr class="bg-gray" />
+                            <p class="small mb-0 text-whitesmoke">Student Id:</p>
+                            <h5 class="card-title h6">ACD25324Ax8</h5>
+                            <hr class="bg-gray" />
+                            <p class="small mb-0 text-whitesmoke">Student Faculty:</p>
+                            <h5 class="card-title h6">Polytechnique</h5>
+                            <hr class="bg-gray" />
+                            <p class="small mb-0 text-whitesmoke">Student Department:</p>
+                            <h5 class="card-title h6">Genie Elec. et informatique</h5> 
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <!--Payment infos-->
+                <div class="text-white bg-dark rounded mt-3"> 
+                    <div class="card-header p-3">
+                        Payment Details
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6"> 
+                                <p class="small mb-0 text-whitesmoke">Payment phone:</p>
+                                <h5 class="card-title h6">+243814243950</h5>
+                                <hr class="bg-gray" /> 
+                                <p class="small mb-0 text-whitesmoke">Paiement statut:</p>
+                                <h5 class="card-title h6 text-warning"> 
+                                    pending
+                                </h5> 
+                            </div>
+                            <div class="col-6">  
+                                <p class="small mb-0 text-whitesmoke">date:</p>
+                                <h5 class="card-title h6">05 fev 2023</h5> 
+                                <hr class="bg-gray" />
+                                <p class="small mb-0 text-whitesmoke">Email:</p>
+                                <h5 class="card-title h6">mbualagilbert@gmailcom</h5>  
+                            </div>
+                          </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="text-white bg-dark rounded"> 
+                    <div class="card-header p-3">
+                        Certification History
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6"> 
+                                <p class="small mb-0 text-whitesmoke">Is this document already certiied?:</p>
+                                <h5 class="card-title h6 text-info">Yes</h5> 
+                            </div>
+                            <div class="col-6">  
+                                <p class="small mb-0 text-whitesmoke">Certification date:</p>
+                                <h5 class="card-title h6">05 mars 2023</h5>  
+                            </div>
+                          </div>
+                    </div> 
+                </div>
+
+
+                <!--Quick actions-->
+                <div class="text-white bg-dark rounded mt-3"> 
+                    <div class="card-header p-3">
+                        Quick Actions
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6"> 
+                                <a href="#" class="btn btn-success">Send The certified Document</a> 
+                            </div>
+                            <div class="col-6">  
+                                <a href="#" class="btn btn-danger">Reject This request</a> 
+                            </div>
+                          </div>
+                    </div> 
+                </div>
+
+                <!--Certificatione-->
+                <div class="text-white bg-dark rounded mt-3"> 
+                    <div class="card-header p-3">
+                        Certiify the Document
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6"> 
+                                <a href="#" class="btn btn-success">Send The certified Document</a> 
+                            </div>
+                            <div class="col-6">  
+                                <a href="#" class="btn btn-danger">Reject This request</a> 
+                            </div>
+                          </div>
+                    </div> 
+                </div>
+
+            </div>
+          </div>
+        </div>
+
+        
+        
+
+        <br />
+        <!--footer-->
+        {% include 'includes/footer.html' %}
+      </div>
+    </div>
+    
+   
+    
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}" ></script>
+    <script src="{{ url_for('static',filename='js/particles.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/app.js') }}"></script> 
+    <script defer src="{{ url_for('static',filename='libs/login.js') }}"></script>
+  </body>
+</html>
