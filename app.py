@@ -66,6 +66,44 @@ def cpanel():
         return render_template('pages/dashboard.html', username=username.upper())
     else:
         return render_template('pages/dashboard.html')
+
+
+@app.route('/cpanel/certificates') 
+@dc.login_required
+def certificates():
+    username = session.get('username')
+    if username is not None:
+        return render_template('pages/dashboard.html', username=username.upper())
+    else:
+        return render_template('pages/dashboard.html')
+
+
+@app.route('/cpanel/requests') 
+@dc.login_required
+def requests():
+    username = session.get('username')
+    if username is not None:
+        return render_template('pages/dashboard.html', username=username.upper())
+    else:
+        return render_template('pages/dashboard.html')
+        
+@app.route('/cpanel/verifications') 
+@dc.login_required
+def verifications():
+    username = session.get('username')
+    if username is not None:
+        return render_template('pages/dashboard.html', username=username.upper())
+    else:
+        return render_template('pages/dashboard.html')
+
+@app.route('/cpanel/settings') 
+@dc.login_required
+def settings():
+    username = session.get('username')
+    if username is not None:
+        return render_template('pages/dashboard.html', username=username.upper())
+    else:
+        return render_template('pages/dashboard.html')
     
 
 

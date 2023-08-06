@@ -62,11 +62,11 @@
         <span class="user-name">Welcome {{ username }}</span>
       </div>
       <hr class="m-3"/>
-      <a href="#" class="active">Dashboard</a>
-      <a href="#">Certificates</a>
-      <a href="#">Requests</a>
-      <a href="#">Verifications</a>
-      <a href="#">Settings</a>
+      <a href="{{ url_for('cpanel') }}" {% if request.path == '/cpanel' %} class="active" {% endif %}>Dashboard</a>
+      <a href="{{ url_for('requests') }}" {% if request.path == '/cpanel/requests' %} class="active" {% endif %}>Requests</a>
+      <a href="{{ url_for('certificates') }}" {% if request.path == '/cpanel/certificates' %} class="active" {% endif %}>Certificates</a>
+      <a href="{{ url_for('verifications') }}" {% if request.path == '/cpanel/verifications' %} class="active" {% endif %}>Verifications</a>
+      <a href="{{ url_for('settings') }}" {% if request.path == '/cpanel/settings' %} class="active" {% endif %}>Settings</a>
     </div>
   </div>
   
