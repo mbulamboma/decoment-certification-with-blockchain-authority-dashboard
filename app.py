@@ -61,6 +61,14 @@ def home():
 def requestDocument():
      return render_template('pages/request-page.html')
 
+@app.route('/pay') 
+def payforDocument():
+     return render_template('pages/request-payment-page.html')
+
+@app.route('/verify') 
+def verifyDocument():
+     return render_template('pages/verify-page.html')
+
 
 @app.route('/cpanel') 
 @dc.login_required
