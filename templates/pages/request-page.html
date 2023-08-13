@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" /> 
+    
+    <title>Request a Document | National Certification Center</title>
+    
+  </head>
+  <body>
+    {% include 'includes/header.html' %}
+    
+
+   
+    <div id="carouselExampleIndicators" style="background: #191c24;" class="carousel slide" data-ride="carousel" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="{{ url_for('static',filename='img/person3.jpg') }}" alt="First slide"> 
+            <div class="overlay"></div>
+            <div class="carousel-caption">
+                 
+                <!--Form-->
+                <div class="row">
+                  <div class="col-sm-12 col-md-9"> 
+                    <div class="bg-light p-4 text-start text-dark rounded">
+                      <form method="post" action="/authenticate" id="postLoginForm">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                              <label for="username">Full name</label>
+                              <input type="text" name="fullname" class="form-control" id="username" placeholder="Entrer votre nom au complet">
+                            </div>
+                            <br />
+                            <div class="form-group">
+                              <label for="faculty">Select a Faculty</label>
+                              <select name="faculty" class="form-control" placeholder="Entrer votre faculté">
+                                <option>Faculty of Polytechnics</option>
+                                <option>Faculty of Law</option>
+                                <option>Faculty of Economics</option>
+                              </select>
+                            </div> 
+                            <br />
+                            <div class="form-group">
+                              <label for="department">Select a Department</label>
+                              <select name="department" class="form-control" placeholder="Selectionner votre department">
+                                <option>Department of Science de base</option>
+                                <option>Department of Electricity</option>
+                                <option>Department of Mechanics</option>
+                              </select>
+                            </div> 
+                            <br /> 
+                            <div class="form-group">
+                              <label for="department">Select an Option</label>
+                              <select name="department" class="form-control" placeholder="Selectionner votre Option">
+                                <option>genie informatique</option>
+                                <option>Electronique</option>
+                                <option>Courant Fort</option>
+                              </select>
+                            </div> 
+                            <br /> 
+                          </div>
+                          <div class="col-sm-12 col-md-6"> 
+                            <div class="form-group">
+                              <label for="matricule">Student Id</label>
+                              <input type="text" name="id" class="form-control" id="username" placeholder="Entrer votre matricule">
+                            </div>
+                            <br /> 
+                            <div class="form-group">
+                              <label for="department">Select a Document</label>
+                              <select name="department" class="form-control" placeholder="Selectionner votre departement">
+                                <option>Relevé de côte</option>
+                                <option>Attestation de fréquentation</option>
+                                <option>Lettre de Stage</option>
+                              </select>
+                            </div> 
+                            <br />
+                            <div class="form-group">
+                              <label for="department">Select an Academic Year</label>
+                              <select name="department" class="form-control" placeholder="Selectionner votre année academique">
+                                <option>2022-2023</option>
+                                <option>2021-2022</option>
+                                <option>2020-2021</option>
+                              </select>
+                            </div> 
+                            <br /> 
+                          </div>
+                        </div> 
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Connexion</button>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-3"></div> 
+                </div>
+
+
+
+                <!--end Form-->
+
+
+            </div>
+          </div>  
+        </div> 
+      </div>
+      
+        
+
+    
+    {% include 'includes/footer.html' %}
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}" ></script>
+    <script src="{{ url_for('static',filename='js/particles.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/app.js') }}"></script> 
+    <script defer src="{{ url_for('static',filename='libs/login.js') }}"></script>
+  </body>
+</html>

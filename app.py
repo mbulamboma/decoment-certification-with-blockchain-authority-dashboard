@@ -57,6 +57,10 @@ def page_not_found(e):
 def home():
      return render_template('pages/home.html')
 
+@app.route('/request') 
+def requestDocument():
+     return render_template('pages/request-page.html')
+
 
 @app.route('/cpanel') 
 @dc.login_required
