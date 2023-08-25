@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" /> 
+    
+    <title>Step 2 - Request a Document | National Certification Center</title>
+    
+  </head>
+  <body>
+    {% include 'includes/header.html' %}
+    
+    <div id="carouselExampleIndicators" style="background: #191c24;" class="carousel slide" data-ride="carousel" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="{{ url_for('static',filename='img/person3.jpg') }}" alt="First slide"> 
+            <div class="overlay"></div>
+            <div class="carousel-caption" style="position: absolute; top: 150px;">
+                 
+                <!--Form-->
+                <div class="row" >
+                  <div class="col-sm-12 col-md-9"> 
+                    <div class="bg-light p-4 text-start text-dark rounded">
+                      <h3 class="h2 text-success" ><i class="fa fa-check"></i> Congratulation! We will send you an email with your certified document once we finish processing your Request</h3>
+                      
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-3"></div> 
+                </div> 
+                <!--end Form--> 
+            </div>
+          </div>  
+        </div> 
+      </div> 
+
+    {% include 'includes/footer.html' %}
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}" ></script>
+    <script src="{{ url_for('static',filename='js/particles.min.js') }}"></script> 
+  </body>
+</html>

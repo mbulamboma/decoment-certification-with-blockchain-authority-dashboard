@@ -5,7 +5,7 @@ from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 import os
 import json
 from utils import decorators as dc, dbconnect as db
-from controllers import login_controller as loginctr
+from controllers import login_controller as loginctr, requests_controller as reqCtrl
 import mysql.connector
 import hashlib 
 from flask_limiter import Limiter
@@ -55,19 +55,31 @@ def page_not_found(e):
 
 @app.route('/') 
 def home():
-     return render_template('pages/home.html')
+    return render_template('pages/home.html')
 
 @app.route('/request') 
 def requestDocument():
-     return render_template('pages/request-page.html')
+    facultyies = reqCtrl.faculty(mysql) 
+    departs = reqCtrl.departments(mysql, "1") 
+    orientations = reqCtrl.orientations(mysql, "1") 
+    docs = reqCtrl.documents(mysql) 
+    return render_template('pages/request-page.html', facs = facultyies, depts = departs, orients = orientations, docs = docs)
 
 @app.route('/pay') 
 def payforDocument():
-     return render_template('pages/request-payment-page.html')
+    req = reqCtrl.getCurrentRequest(mysql) 
+    price = reqCtrl.getPrice(mysql, req["document"]) 
+    return render_template('pages/request-payment-page.html', doc = req["document"] + " / "+ req["promotion"], year = req["year"], price = price)
+
+
+
+@app.route('/success-pay') 
+def successPay(): 
+    return render_template('pages/request-success.html')
 
 @app.route('/verify') 
 def verifyDocument():
-     return render_template('pages/verify-page.html')
+    return render_template('pages/verify-page.html')
 
 
 @app.route('/cpanel') 
@@ -140,8 +152,6 @@ def login():
 def getStatistics():
     return jsonify({'message': "statistics gotten"})
 
-
-
 @app.route('/logout',methods = ['GET'])
 def logout(): 
     session.pop('loggedin', False)
@@ -150,6 +160,28 @@ def logout():
     session.pop('username', None) 
     return redirect(url_for('login'))
 
+##### Jquery Requests ##############
+@app.route('/save-request', methods = ['POST'])
+def saveRequest():
+    try: 
+        jResponse = reqCtrl.addRequest(request, mysql) 
+        print(jResponse)
+        response = jsonify(jResponse)
+        return response
+    except Exception as e:
+        print("An error occurred:", e)
+        return jsonify({"success": False, "message": "Service temporary unavailable"})
+
+@app.route('/save-paiement', methods=['POST'])
+def savePaiement():
+    try: 
+        jResponse = reqCtrl.addPaiement(request, mysql) 
+        print(jResponse)
+        response = jsonify(jResponse)
+        return response
+    except Exception as e:
+        print("An error occurred:", e)
+        return jsonify({"success": False, "message": "Service temporary unavailable"})
 
 @app.route('/authenticate',methods = ['POST'])
 @limiter.limit("50 per day")

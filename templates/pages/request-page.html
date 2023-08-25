@@ -29,38 +29,39 @@
                   <div class="col-sm-12 col-md-9"> 
                     <div class="bg-light p-4 text-start text-dark rounded">
                       <h3 class="h3">Request a document (Step 1/2)</h3>
-                      <form method="post" action="/authenticate" id="postLoginForm">
+                      <small class="text-danger" id="errorMessage"></small>
+                      <form method="post" action="/authenticate" id="postRequestForm">
                         <div class="row">
                           <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                               <label for="username">Full name</label>
-                              <input type="text" name="fullname" class="form-control" id="username" placeholder="Entrer votre nom au complet">
+                              <input required type="text" name="fullname" class="form-control" id="fullname" placeholder="Entrer votre nom au complet">
                             </div>
                             <br />
                             <div class="form-group">
                               <label for="faculty">Select a Faculty</label>
-                              <select name="faculty" class="form-control" placeholder="Entrer votre faculté">
-                                <option>Faculty of Polytechnics</option>
-                                <option>Faculty of Law</option>
-                                <option>Faculty of Economics</option>
+                              <select name="faculty" id="faculty" class="form-control" placeholder="Entrer votre faculté">
+                                {% for fac in facs %}
+                                    <option>{{ fac }}</option>
+                                {% endfor %} 
                               </select>
                             </div> 
                             <br />
                             <div class="form-group">
                               <label for="department">Select a Department</label>
-                              <select name="department" class="form-control" placeholder="Selectionner votre department">
-                                <option>Department of Science de base</option>
-                                <option>Department of Electricity</option>
-                                <option>Department of Mechanics</option>
+                              <select name="department" id="departement" class="form-control" placeholder="Selectionner votre department">
+                                {% for dep in depts %}
+                                    <option>{{ dep }}</option>
+                                {% endfor %}  
                               </select>
                             </div> 
                             <br /> 
                             <div class="form-group">
                               <label for="department">Select an Option</label>
-                              <select name="department" class="form-control" placeholder="Selectionner votre Option">
-                                <option>genie informatique</option>
-                                <option>Electronique</option>
-                                <option>Courant Fort</option>
+                              <select name="department" id="orientation" class="form-control" placeholder="Selectionner votre Option">
+                                {% for or in orients %}
+                                    <option>{{ or }}</option>
+                                {% endfor %}  
                               </select>
                             </div> 
                             <br /> 
@@ -68,30 +69,50 @@
                           <div class="col-sm-12 col-md-6"> 
                             <div class="form-group">
                               <label for="matricule">Student Id</label>
-                              <input type="text" name="id" class="form-control" id="username" placeholder="Entrer votre matricule">
+                              <input required type="text" name="id" class="form-control" id="studentId" placeholder="Entrer votre matricule">
                             </div>
                             <br /> 
                             <div class="form-group">
                               <label for="department">Select a Document</label>
-                              <select name="department" class="form-control" placeholder="Selectionner votre departement">
-                                <option>Relevé de côte</option>
-                                <option>Attestation de fréquentation</option>
-                                <option>Lettre de Stage</option>
+                              <select name="department" id="documentTitle" class="form-control" placeholder="Selectionner votre departement">
+                                {% for doc in docs %}
+                                    <option>{{ doc }}</option>
+                                {% endfor %} 
                               </select>
                             </div> 
                             <br />
                             <div class="form-group">
                               <label for="department">Select an Academic Year</label>
-                              <select name="department" class="form-control" placeholder="Selectionner votre année academique">
+                              <select name="department" id="academicYear" class="form-control" placeholder="Selectionner votre année academique">
                                 <option>2022-2023</option>
                                 <option>2021-2022</option>
                                 <option>2020-2021</option>
+                                <option>2019-2020</option>
+                                <option>2018-2019</option>
+                              </select>
+                            </div> 
+                            <br />
+                            <div class="form-group">
+                              <label for="department">Promotion</label>
+                              <select name="department" id="promotion" class="form-control" placeholder="Selectionner votre année academique">
+                                <option>Prepo</option>
+                                <option>G1</option>
+                                <option>G2</option>
+                                <option>G3</option>
+                                <option>L1</option>
+                                <option>L2</option>
                               </select>
                             </div> 
                             <br /> 
                           </div>
+                        </div>
+                        
+                        <div id="loading" class="d-none text-center container">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div> 
-                        <button type="submit" class="btn btn-primary w-100 mt-3">Request now</button>
+                        <button type="submit" class="btn btn-primary w-100 mt-3" id="formButton">Request now</button>
                       </form>
                     </div>
                   </div>
@@ -113,9 +134,7 @@
     
     {% include 'includes/footer.html' %}
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}" ></script>
-    <script src="{{ url_for('static',filename='js/particles.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/app.js') }}"></script> 
-    <script defer src="{{ url_for('static',filename='libs/login.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}" ></script> 
+    <script defer src="{{ url_for('static',filename='libs/requests.js') }}"></script>
   </body>
 </html>
