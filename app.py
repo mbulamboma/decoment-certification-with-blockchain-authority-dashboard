@@ -29,6 +29,7 @@ app.config['MYSQL_HOST'] = os.environ.get("MYSQL_HOST")
 app.config['MYSQL_USER'] = os.environ.get("MYSQL_USER") 
 app.config['MYSQL_PASSWORD'] = os.environ.get("MYSQL_PASSWORD") 
 app.config['MYSQL_DB'] = os.environ.get("MYSQL_DB") 
+UPLOAD_FILE_PATH = os.environ.get("DOCUMENTS_UPLOAD_FILE_PATH")
 
 # Intialize MySQL
 isConnected, mysql = db.connect_to_mysql(app, mysql)
@@ -74,7 +75,7 @@ def payforDocument():
 
 
 @app.route('/success-pay') 
-def successPay(): 
+def successPay():
     return render_template('pages/request-success.html')
 
 @app.route('/verify') 
@@ -163,22 +164,16 @@ def logout():
 ##### Jquery Requests ##############
 @app.route('/save-request', methods = ['POST'])
 def saveRequest():
-    try: 
-        jResponse = reqCtrl.addRequest(request, mysql) 
-        print(jResponse)
-        response = jsonify(jResponse)
-        return response
+    try:  
+        return jsonify(reqCtrl.addRequest(request, mysql))
     except Exception as e:
         print("An error occurred:", e)
         return jsonify({"success": False, "message": "Service temporary unavailable"})
 
 @app.route('/save-paiement', methods=['POST'])
 def savePaiement():
-    try: 
-        jResponse = reqCtrl.addPaiement(request, mysql) 
-        print(jResponse)
-        response = jsonify(jResponse)
-        return response
+    try:  
+        return jsonify(reqCtrl.addPaiement(request, mysql))
     except Exception as e:
         print("An error occurred:", e)
         return jsonify({"success": False, "message": "Service temporary unavailable"})
@@ -187,8 +182,7 @@ def savePaiement():
 @limiter.limit("50 per day")
 def authenticate(): 
     try:
-        jResponse = loginctr.login(request, mysql) 
-        print(jResponse)
+        jResponse = loginctr.login(request, mysql)  
         response = jsonify(jResponse)
         response.set_cookie('access_token_cookie', value=jResponse['token'], httponly=True)  # Set HttpOnly cookie
         return response
