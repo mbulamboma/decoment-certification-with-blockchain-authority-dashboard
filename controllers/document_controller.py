@@ -14,11 +14,13 @@ def certify(request, uploadFilePath):
         unique_filename = uniqueId + '.pdf'
         filepath = os.path.join(uploadFilePath, unique_filename)
         file.save(filepath)
-        
+        # 2.4 Extract from the document useful information
+        # 2.5 Check if in the blockchain has the similar record
         pathOfTheCertifiedDocument = os.path.join(uploadFilePath, uniqueId+"-certified.pdf")
         easyUrlToVerifyTheDocument = "https://localhost/Generate-the-Url-for-verification"
         qr.gen_certified_document(hashText, filepath, pathOfTheCertifiedDocument, easyUrlToVerifyTheDocument)
 
-        # now Send the Certified Document to a Decentralized Network
+        # 3. now Send the Certified Document to a Decentralized Network
+        # 4. Save All the information in the blockchain
 
         

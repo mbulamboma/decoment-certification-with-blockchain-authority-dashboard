@@ -10,6 +10,7 @@ import mysql.connector
 import hashlib 
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+import openai
 
 # Application set up
 app = Flask(__name__)
@@ -31,6 +32,16 @@ app.config['MYSQL_PASSWORD'] = os.environ.get("MYSQL_PASSWORD")
 app.config['MYSQL_DB'] = os.environ.get("MYSQL_DB") 
 UPLOAD_FILE_PATH = os.environ.get("DOCUMENTS_UPLOAD_FILE_PATH")
 
+#blockchain configs
+rpc_server = os.environ.get("RPC_SERVER")
+abi_file_path = os.environ.get("CONTRACT_ABI_FILE_PATH")
+user_address = os.environ.get("DEFAULT_USER_ADRESS")
+
+#openai configs 
+FINE_TUNED_MODEL = os.environ.get("OPENAI_FINE_TUNED_MODEL_ID")
+openai.organization = os.environ.get("OPENAI_ORG_ID")
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+
 # Intialize MySQL
 isConnected, mysql = db.connect_to_mysql(app, mysql)
 #test sql connection
@@ -47,6 +58,11 @@ limiter = Limiter(
     storage_uri="memory://",
     strategy="moving-window", # or "fixed-window"
 )
+
+
+# Create the contract instance
+contract = web3.eth.contract(address=contract_address, abi=abi)
+
 
 
 @app.errorhandler(404)
