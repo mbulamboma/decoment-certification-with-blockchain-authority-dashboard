@@ -11,10 +11,5 @@ def getRecordFromBlockChain(hashText):
         }
     
 def saveRecordInBlockChain(ipfsIDHash, hashText, contract, user_address):
-    result  =  contract.functions.documentExists(hashText).call({'from': user_address})  
-    datas =  {
-            'contentHash': result[0],
-            'fileHash': result[1],
-            'timestamp': result[2]
-        }
+    contract.functions.saveDocument(hashText, ipfsIDHash).call({'from': user_address})   
     return True
