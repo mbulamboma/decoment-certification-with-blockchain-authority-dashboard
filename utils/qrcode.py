@@ -58,4 +58,5 @@ def gen_certified_document(hash_text, real_doc_path, output_doc_path, file_url):
  
     with open(output_doc_path, "wb") as outputStream:
         output_file.write(outputStream)
+        outputStream.close()
   

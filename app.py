@@ -4,7 +4,7 @@ from flask_login import login_required, LoginManager, current_user, login_user
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 import os
 import json
-from utils import decorators as dc, dbconnect as db
+from utils import decorators as dc, dbconnect as db, fileUtils as fu
 from controllers import login_controller as loginctr, requests_controller as reqCtrl
 import mysql.connector
 import hashlib 
@@ -59,6 +59,11 @@ limiter = Limiter(
     strategy="moving-window", # or "fixed-window"
 )
 
+
+# init web3 and default account
+web3 = Web3(Web3.HTTPProvider(rpc_server))
+web3.eth.default_account = user_address 
+abi, contract_address = fu.getAbiAndContractAddr(abi_file_path)
 
 # Create the contract instance
 contract = web3.eth.contract(address=contract_address, abi=abi)
