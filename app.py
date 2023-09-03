@@ -3,9 +3,10 @@ from flask_cors import CORS
 from flask_login import login_required, LoginManager, current_user, login_user
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 import os
+from web3 import Web3
 import json
 from utils import decorators as dc, dbconnect as db, fileUtils as fu
-from controllers import login_controller as loginctr, requests_controller as reqCtrl
+from controllers import login_controller as loginctr, requests_controller as reqCtrl, upload_file as upFile, document_controller as dCtrl
 import mysql.connector
 import hashlib 
 from flask_limiter import Limiter
@@ -41,6 +42,8 @@ user_address = os.environ.get("DEFAULT_USER_ADRESS")
 FINE_TUNED_MODEL = os.environ.get("OPENAI_FINE_TUNED_MODEL_ID")
 openai.organization = os.environ.get("OPENAI_ORG_ID")
 openai.api_key = os.environ.get("OPENAI_API_KEY")
+
+IPFS_WEB_SERVER = os.environ.get("IPFS_WEB_SERVER")
 
 # Intialize MySQL
 isConnected, mysql = db.connect_to_mysql(app, mysql)
@@ -170,7 +173,7 @@ def login():
 
 
 @app.route('/statistics', methods = ['GET'])
-@jwt_required()
+@dc.login_required
 def getStatistics():
     return jsonify({'message': "statistics gotten"})
 
@@ -183,6 +186,26 @@ def logout():
     return redirect(url_for('login'))
 
 ##### Jquery Requests ##############
+@app.route('/doc-certify-now', methods=['POST'])
+def certifyNow():
+     certId = request.json.get('certId', None)
+     dCtrl.certify(request, UPLOAD_FILE_PATH, openai, IPFS_WEB_SERVER)
+
+     return "works"
+
+@app.route('/fileupload', methods=['POST']) 
+def uploadDocument():
+    try:
+        if "loggedin" in session and session['loggedin'] == True:
+            rep = upFile.saveFile(request, UPLOAD_FILE_PATH) 
+            return jsonify(rep)
+        else:
+            return "bad request", 401
+    except Exception as e:
+        print("An error occurred:", e)
+        return "bad request", 401
+
+
 @app.route('/save-request', methods = ['POST'])
 def saveRequest():
     try:  

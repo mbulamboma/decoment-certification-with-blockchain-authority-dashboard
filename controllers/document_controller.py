@@ -1,22 +1,25 @@
-
+import uuid
 import hashlib
+from flask import session
 from utils import qrcode as qr
 from utils import ipfs as fs
 from utils import eth 
 from utils import prompt as ai 
+import PyPDF2
 
 def certify(request, uploadFilePath, openai, ipfsBaseUrl):
-    data_response = {}
-    file = request.files['myFile']
-    if file:
-        uniqueId = str(uuid.uuid4())
-        unique_filename = uniqueId + '.pdf'
-        filepath = os.path.join(uploadFilePath, unique_filename)
-        file.save(filepath)
+    data_response = {} 
+    if 'file_to_certify' in session: 
+        filepath = session['file_to_certify'] 
         
         # read the file content
         with open(filepath, "rb") as f:
-            file_content = f.read()
+            pdf_reader = PyPDF2.PdfReader(f)
+            file_content = ''
+            for page_num in range(len(pdf_reader.pages)):
+                # Get the text content of the current page
+                page = pdf_reader.pages[page_num]
+                file_content += page.extract_text() 
             f.close()
  
         rowhashText = ai.getDocumentInfos(file_content, openai)
