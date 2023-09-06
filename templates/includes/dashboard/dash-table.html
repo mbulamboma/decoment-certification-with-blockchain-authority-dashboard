@@ -24,56 +24,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>John Doe</td>
-              <td>john.doe@example.com</td>
-              <td>+1 234 567 8901</td>
-              <td>Document 1</td>
-              <td>Type A</td>
-              <td>2023-08-05</td>
-            </tr>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>John Doe</td>
-              <td>john.doe@example.com</td>
-              <td>+1 234 567 8901</td>
-              <td>Document 1</td>
-              <td>Type A</td>
-              <td>2023-08-05</td>
-            </tr>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>John Doe</td>
-              <td>john.doe@example.com</td>
-              <td>+1 234 567 8901</td>
-              <td>Document 1</td>
-              <td>Type A</td>
-              <td>2023-08-05</td>
-            </tr>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>John Doe</td>
-              <td>john.doe@example.com</td>
-              <td>+1 234 567 8901</td>
-              <td>Document 1</td>
-              <td>Type A</td>
-              <td>2023-08-05</td>
-            </tr>
-            <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>John Doe</td>
-              <td>john.doe@example.com</td>
-              <td>+1 234 567 8901</td>
-              <td>Document 1</td>
-              <td>Type A</td>
-              <td>2023-08-05</td>
-            </tr>
+            {% for doc in docs %}
+              <tr>
+                <td>{{doc["full_name"]}}</td>
+                <td>{{doc["document_id"]}}</td>
+                <td>{{doc["faculty"]}}</td>
+                <td>{{doc["department"]}}</td>
+                <td>{{doc["orientation"]}}</td>
+                <td>{{doc["promotion"]}}</td>
+                <td>{{doc["academic_year"]}}</td>
+                <td>{{doc["requested_at"]}}</td>
+                <td><a href="/cpanel/view-request/{{doc['id']}}" class="btn btn-outline-light">view</a></td>
+              </tr>>
+            {% endfor %} 
+             
             <!-- Add more rows here as needed -->
           </tbody>
         </table>
