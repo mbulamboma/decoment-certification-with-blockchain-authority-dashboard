@@ -27,7 +27,9 @@ contract DocumentCertification {
  
     function saveDocument(string memory _contentHash, string memory _fileHash) public onlyOwner {
         require(!documentExists(_contentHash), "Content hash already exists");
-        uint256 timestamp = block.timestamp;
-        certifiedDocuments[_contentHash] = Document(_contentHash, _fileHash, timestamp);
+        uint256 timestamps = block.timestamp; 
+        certifiedDocuments[_contentHash].contentHash= _contentHash;
+        certifiedDocuments[_contentHash].fileHash = _fileHash;
+        certifiedDocuments[_contentHash].timestamp = timestamps; 
     }
 }

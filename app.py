@@ -43,7 +43,7 @@ FINE_TUNED_MODEL = os.environ.get("OPENAI_FINE_TUNED_MODEL_ID")
 openai.organization = os.environ.get("OPENAI_ORG_ID")
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-IPFS_WEB_SERVER = os.environ.get("IPFS_WEB_SERVER")
+IPFS_API_SERVER = os.environ.get("IPFS_API_SERVER")
 
 # Intialize MySQL
 isConnected, mysql = db.connect_to_mysql(app, mysql)
@@ -189,9 +189,9 @@ def logout():
 @app.route('/doc-certify-now', methods=['POST'])
 def certifyNow():
      certId = request.json.get('certId', None)
-     dCtrl.certify(request, UPLOAD_FILE_PATH, openai, IPFS_WEB_SERVER)
+     rep = dCtrl.certify(request, UPLOAD_FILE_PATH, openai, IPFS_API_SERVER, contract, user_address)
 
-     return "works"
+     return jsonify(rep)
 
 @app.route('/fileupload', methods=['POST']) 
 def uploadDocument():

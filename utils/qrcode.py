@@ -10,7 +10,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import os
 
-def gen_certified_document(hash_text, real_doc_path, output_doc_path, file_url): 
+def gen_certified_document(hash_text, real_doc_path, output_doc_path, file_url, default_file_path): 
     data = hash_text
     unique_id = str(uuid.uuid4())
  
@@ -23,12 +23,14 @@ def gen_certified_document(hash_text, real_doc_path, output_doc_path, file_url):
     qr.add_data(data)
     qr.make(fit=True) 
     img = qr.make_image(fill_color="black", back_color="white") 
-    img.save(unique_id+"qrcode.png")
+    goodPath = os.path.join(default_file_path, unique_id+"qrcode.png")
+    img.save(goodPath)
  
  
     pdfmetrics.registerFont(TTFont('Helvetica', 'Helvetica.ttf')) 
-    c = canvas.Canvas(unique_id+'watermark.pdf', pagesize=letter)
-    img = ImageReader(unique_id+'qrcode.png')
+    waterPath = os.path.join(default_file_path, unique_id+"watermark.pdf")
+    c = canvas.Canvas(waterPath, pagesize=letter)
+    img = ImageReader(goodPath)
  
     c.drawImage(img, 400, 670, width=130, height=130) 
     c.setFont('Helvetica', 11)
@@ -40,13 +42,10 @@ def gen_certified_document(hash_text, real_doc_path, output_doc_path, file_url):
     c.setFont('Helvetica', 8) 
     c.drawString(20, 20, "verification url:")
      
-    c.drawString(445, 670, "document id")
-    c.setFont('Helvetica', 9)
-    c.drawString(413, 660, hash_text)
 
     c.save()
  
-    watermark = PdfReader(open(unique_id+"watermark.pdf", "rb"))
+    watermark = PdfReader(open(waterPath, "rb"))
     output_file = PdfWriter()
     input_file = PdfReader(open(real_doc_path, "rb"))
  
