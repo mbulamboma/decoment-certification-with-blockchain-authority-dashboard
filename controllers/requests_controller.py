@@ -129,10 +129,10 @@ def addPaiement(request, mysql):
     return data_response
 
 
-def updateRequest(mysql, ipfsHash, req_id):
+def updateRequest(mysql, ipfsHash, req_id, docHash):
     cursor = mysql.cursor()
-    query = "UPDATE requests SET ipfs_hash = %s WHERE id = %s;"
-    cursor.execute(query, (ipfsHash, req_id)) 
+    query = "UPDATE requests SET ipfs_hash = %s, doc_hash = %s WHERE id = %s;"
+    cursor.execute(query, (ipfsHash, docHash, req_id)) 
     mysql.commit()
     cursor.close()
 

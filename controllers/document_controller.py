@@ -34,7 +34,8 @@ def certify(mysql, request, uploadFilePath, openai, ipfsBaseUrl, contract, user_
             data_response["message"] = "The document is successfully certified."
             data_response["ipfs-url"] = f"http://127.0.0.1:8080/ipfs/{datas['fileHash']}" 
             #save the document hash
-            reqCtrl.updateRequest(mysql, data_response["ipfs-url"], requestId)
+            print("222222----------------- "+datas['fileHash'])
+            reqCtrl.updateRequest(mysql, datas['fileHash'], requestId, hashText) 
             return data_response
         
         pathOfTheCertifiedDocument = os.path.join(uploadFilePath, uniqueId+"-certified.pdf")
@@ -49,7 +50,8 @@ def certify(mysql, request, uploadFilePath, openai, ipfsBaseUrl, contract, user_
         data_response["ipfs-url"] = f"http://127.0.0.1:8080/ipfs/{ipfsIDHash}"
 
         #save the document hash
-        reqCtrl.updateRequest(mysql, ipfsIDHash, requestId) 
+        print("11111----------------- "+ipfsHash)
+        reqCtrl.updateRequest(mysql, ipfsIDHash, requestId, hashText) 
         session['file_to_certify'] =  None
         return data_response 
     else:
