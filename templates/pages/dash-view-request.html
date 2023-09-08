@@ -51,6 +51,7 @@
         <div class="container mt-3"> 
           <div class="row ">
             <div class="col-sm-12 col-md-6">
+              
                 <div class="text-white bg-dark rounded">
                     <div class="card-header p-3">
                       Request Details
@@ -60,30 +61,30 @@
                       <div class="row">
                         <div class="col-6"> 
                             <p class="small mb-0 text-whitesmoke">Student name:</p>
-                            <h5 class="card-title h6">MBULA MBOMA JEAN GILBERT</h5>
+                            <h5 class="card-title h6">{{aRequest[1]}}</h5>
                             <hr class="bg-gray" /> 
                             <p class="small mb-0 text-whitesmoke">Academic year:</p>
-                            <h5 class="card-title h6">2022-2023</h5>
+                            <h5 class="card-title h6">{{aRequest[9]}}</h5>
                             <hr class="bg-gray" />
                             <p class="small mb-0 text-whitesmoke">Student classe:</p>
-                            <h5 class="card-title h6">2e technique</h5>
+                            <h5 class="card-title h6">{{aRequest[8]}}</h5>
                             <hr class="bg-gray" />
                             <p class="small mb-0 text-whitesmoke">Student Option:</p>
-                            <h5 class="card-title h6">informatique</h5> 
+                            <h5 class="card-title h6">{{aRequest[7]}}</h5> 
                         </div>
                         <div class="col-6"> 
                             
                             <p class="small mb-0 text-whitesmoke">Document Requested:</p>
-                            <h5 class="card-title h6 text-danger">Rélévé de côte</h5>
+                            <h5 class="card-title h6 text-danger">{{aRequest[3]}}</h5>
                             <hr class="bg-gray" />
                             <p class="small mb-0 text-whitesmoke">Student Id:</p>
-                            <h5 class="card-title h6">ACD25324Ax8</h5>
+                            <h5 class="card-title h6">{{aRequest[2]}}</h5>
                             <hr class="bg-gray" />
                             <p class="small mb-0 text-whitesmoke">Student Faculty:</p>
-                            <h5 class="card-title h6">Polytechnique</h5>
+                            <h5 class="card-title h6">{{aRequest[5]}}</h5>
                             <hr class="bg-gray" />
                             <p class="small mb-0 text-whitesmoke">Student Department:</p>
-                            <h5 class="card-title h6">Genie Elec. et informatique</h5> 
+                            <h5 class="card-title h6">{{aRequest[6]}}</h5> 
                         </div>
                       </div>
                     </div>
@@ -99,19 +100,24 @@
                         <div class="row">
                             <div class="col-6"> 
                                 <p class="small mb-0 text-whitesmoke">Payment phone:</p>
-                                <h5 class="card-title h6">+243814243950</h5>
+                                <h5 class="card-title h6">{{payment[3]}}</h5>
                                 <hr class="bg-gray" /> 
                                 <p class="small mb-0 text-whitesmoke">Paiement statut:</p>
-                                <h5 class="card-title h6 text-warning"> 
-                                    pending
+                                {% if payment[4] == 1 %}
+                                  <h5 class="card-title h6 text-info"> 
+                                  Paid
+                                {% else %}
+                                  <h5 class="card-title h6 text-warning"> 
+                                  Pending
+                                {% endif %}
                                 </h5> 
                             </div>
                             <div class="col-6">  
                                 <p class="small mb-0 text-whitesmoke">date:</p>
-                                <h5 class="card-title h6">05 fev 2023</h5> 
+                                <h5 class="card-title h6">{{payment[5]}}</h5> 
                                 <hr class="bg-gray" />
                                 <p class="small mb-0 text-whitesmoke">Email:</p>
-                                <h5 class="card-title h6">mbualagilbert@gmailcom</h5>  
+                                <h5 class="card-title h6">{{payment[2]}}</h5>  
                             </div>
                           </div>
                     </div>
@@ -121,35 +127,23 @@
             <div class="col-sm-12 col-md-6">
                 <div class="text-white bg-dark rounded"> 
                     <div class="card-header p-3">
-                        Certification History
+                        CERTIFIED DOCUMENT
                     </div>
                     
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6"> 
-                                <p class="small mb-0 text-whitesmoke">Is this document already certiied?:</p>
-                                <h5 class="card-title h6 text-info">Yes</h5> 
-                            </div>
-                            <div class="col-6">  
-                                <p class="small mb-0 text-whitesmoke">Certification date:</p>
-                                <h5 class="card-title h6">05 mars 2023</h5>  
-                            </div>  
                             <p class="small mb-0 text-whitesmoke">Document link:</p>
-                            <a href="#" class="card-title">https://127.0.0.1:5000/certification/document/doc-id/542281338</a>  
-
+                            <div id="documentUrl">
+                              {% if len(aRequest[4]) == 0 %}
+                                <a href="#" class="card-title" ></a>
+                              {% else %}
+                                <a href="#" class="card-title">http://127.0.0.1:8080/ipfs/{{aRequest[4]}}</a>
+                              {% endif %}
+                            </div>
+                            
+                            
                           </div>
-                    </div> 
-                </div>
-
-
-                <!--Quick actions-->
-                <div class="text-white bg-dark rounded mt-3"> 
-                    <div class="card-header p-3">
-                        Quick Actions
-                    </div>
-                    
-                    <div class="card-body">
-                        <div class="row">
+                          <div class="row">
                             <div class="col-6"> 
                                 <a href="#" class="btn btn-success">Send The certified Document</a> 
                             </div>
@@ -157,44 +151,47 @@
                                 <a href="#" class="btn btn-danger">Reject This request</a> 
                             </div>
                           </div>
-                    </div> 
+                    </div>
                 </div>
+
+ 
 
                 <!--Certificatione-->
-                <div class="text-white bg-dark rounded mt-3"> 
-                    <div class="card-header p-3">
-                        Certiify the Document
-                    </div>
-                    
-                    <div class="card-body">
-                        <div class="row">
-                            <span class="small">
-                                To certify the document you only need to updload the document here and click on certify now.
-                                <br />
-                            </span>
-                            <span class="small text-warning">Pay attention! Once the file is certify there is no revert action. So be careful not to have mistakes in your documents</span>
-                            <div class="ms-1 me-2">
-                                <form action="/fileupload" class="dropzone" id="dropzoneForm">
-                                    <div class="fallback">
-                                        <input name="file" type="file" />
-                                    </div>
-                                </form> 
-                                
-                                <form id="certifyForm" action="POST">
-                                  <input hidden name="certId" id="certId" value="25" /> 
-                                  <div id="loading" class="d-none text-center container">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                </div>
-                                  <button id="formButton" class="btn btn-info w-100 mt-3">Certify Now</button> 
-                                </form>
+                {% if len(aRequest[4]) == 0 %}
+                  <div class="text-white bg-dark rounded mt-3" id="uploadContainer"> 
+                      <div class="card-header p-3">
+                          Certiify the Document
+                      </div>
+                      <small class="text-danger" id="errorMessage"></small>
+                      <div class="card-body">
+                          <div class="row">
+                              <span class="small">
+                                  To certify the document you only need to updload the document here and click on certify now.
+                                  <br />
+                              </span>
+                              <span class="small text-warning">Pay attention! Once the file is certify there is no revert action. So be careful not to have mistakes in your documents</span>
+                              <div class="ms-1 me-2 p-0">
+                                  <form action="/fileupload" class="dropzone p-0" id="dropzoneForm">
+                                      <div class="fallback">
+                                          <input name="file" type="file" />
+                                      </div>
+                                  </form> 
+                                  
+                                  <form id="certifyForm" action="POST">
+                                    <input hidden name="certId" id="certId" value="{{aRequest[0]}}" /> 
+                                    <div id="loading" class="d-none text-center container">
+                                      <div class="spinner-border text-primary" role="status">
+                                          <span class="visually-hidden">Loading...</span>
+                                      </div>
+                                  </div>
+                                    <button id="formButton" class="btn btn-info w-100 mt-3">Certify Now</button> 
+                                  </form>
+                              </div>
+                              
                             </div>
-                            
-                          </div>
-                    </div> 
-                </div>
-
+                      </div> 
+                  </div>
+                {% endif %}
             </div>
           </div>
         </div>

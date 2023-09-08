@@ -1,7 +1,7 @@
 <div class="container mb-2 mt-4">
     <div class="text-white bg-dark rounded">
       <div class="card-header p-3 h5">
-        Top 10 Document Requests  
+        Top 50 Document Requests  
         <a href="{{url_for('requests')}}" class="text-white small"><span class="float-end bg-danger rounded ps-2 pe-2 small">See All Requests <i class="fa fa-arrow-right"></i></span></a>
       </div>
       <div class="card-body">
@@ -13,29 +13,26 @@
         <table class="table table-bordered table-dark table-striped">
           <thead class="table-dark">
             <tr>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">Full Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone</th>
-              <th scope="col">Document Name</th>
-              <th scope="col">Document Type</th>
-              <th scope="col">Date</th>
+              <th scope="col">Name</th>
+              <th scope="col">Document</th>
+              <th scope="col">Faculty</th>
+              <th scope="col">Class</th> 
+              <th scope="col">Academic year</th> 
+              <th scope="col">date</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            {% for doc in docs %}
+            {% for doc in docs %} 
               <tr>
-                <td>{{doc["full_name"]}}</td>
-                <td>{{doc["document_id"]}}</td>
-                <td>{{doc["faculty"]}}</td>
-                <td>{{doc["department"]}}</td>
-                <td>{{doc["orientation"]}}</td>
-                <td>{{doc["promotion"]}}</td>
-                <td>{{doc["academic_year"]}}</td>
-                <td>{{doc["requested_at"]}}</td>
-                <td><a href="/cpanel/view-request/{{doc['id']}}" class="btn btn-outline-light">view</a></td>
-              </tr>>
+                <td>{{doc[1]}}</td> 
+                <td>{{doc[3]}}</td> 
+                <td>{{doc[5]}}</td>
+                <td>{{doc[8]}}</td>
+                <td>{{doc[9]}}</td>
+                <td>{{doc[10].strftime('%Y-%m-%d %H:%M:%S')}}</td>
+                <td><a href="/cpanel/view-request/{{doc[0]}}" class="btn btn-outline-light">view</a></td>
+              </tr>
             {% endfor %} 
              
             <!-- Add more rows here as needed -->

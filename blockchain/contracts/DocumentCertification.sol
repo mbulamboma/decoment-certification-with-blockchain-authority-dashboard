@@ -20,6 +20,14 @@ contract DocumentCertification {
     constructor() public {
         owner = msg.sender;
     } 
+
+    function getDocumentInfo(string memory _contentHash) public view returns (string memory, string memory, uint256) {
+        return (
+            certifiedDocuments[_contentHash].contentHash,
+            certifiedDocuments[_contentHash].fileHash,
+            certifiedDocuments[_contentHash].timestamp
+        );
+    }
  
     function documentExists(string memory _contentHash) public view returns (bool) {
         return bytes(certifiedDocuments[_contentHash].contentHash).length != 0;

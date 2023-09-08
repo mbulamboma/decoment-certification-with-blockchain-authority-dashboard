@@ -12,6 +12,7 @@ import hashlib
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import openai
+import time
 
 # Application set up
 app = Flask(__name__)
@@ -111,10 +112,23 @@ def verifyDocument():
 @dc.login_required
 def cpanel():
     username = session.get('username')
+    myRequests = reqCtrl.getTop10Request(mysql)
+    print(myRequests)
     if username is not None:
-        return render_template('pages/dashboard.html', username=username.upper())
+        return render_template('pages/dashboard.html', username=username.upper(), docs = myRequests, time = time)
     else:
         return render_template('pages/dashboard.html')
+
+
+@app.route('/cpanel/view-request/<id>')
+def view_request(id):
+    username = session.get('username')
+    aRequest = reqCtrl.getRequestById(mysql, id)
+    aPayment = reqCtrl.getPaymentInfos(mysql, id)
+    if username is not None:
+        return render_template('pages/dash-view-request.html', username=username.upper(), aRequest = aRequest, payment = aPayment, len = len)
+    else:
+        return render_template('pages/dash-view-request.html')
 
 
 @app.route('/cpanel/certificates') 
@@ -137,13 +151,6 @@ def requests():
         return render_template('pages/dash-requests.html')
 
 
-@app.route('/cpanel/view-request/<id>')
-def view_request(id):
-    username = session.get('username')
-    if username is not None:
-        return render_template('pages/dash-view-request.html', username=username.upper())
-    else:
-        return render_template('pages/dash-view-request.html')
 
         
 @app.route('/cpanel/verifications') 
@@ -188,10 +195,17 @@ def logout():
 ##### Jquery Requests ##############
 @app.route('/doc-certify-now', methods=['POST'])
 def certifyNow():
-     certId = request.json.get('certId', None)
-     rep = dCtrl.certify(request, UPLOAD_FILE_PATH, openai, IPFS_API_SERVER, contract, user_address)
+    try:
+        if "loggedin" in session and session['loggedin'] == True:
+            certId = request.json.get('certId', None)
+            rep = dCtrl.certify(request, UPLOAD_FILE_PATH, openai, IPFS_API_SERVER, contract, user_address)
+            return jsonify(rep)
+        else:
+            return "bad request", 401
+    except Exception as e:
+        print("An error occurred:", e)
+        return "bad request", 401
 
-     return jsonify(rep)
 
 @app.route('/fileupload', methods=['POST']) 
 def uploadDocument():

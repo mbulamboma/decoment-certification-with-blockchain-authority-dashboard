@@ -2,6 +2,8 @@
 const form = window.document.getElementById('certifyForm');
 const loading = window.document.getElementById('loading');
 const formButton = window.document.getElementById('formButton');
+const uploadContainer = window.document.getElementById('uploadContainer');
+const documentUrl = window.document.getElementById('documentUrl');
  
 form.addEventListener('submit', function (event) {
     event.preventDefault();  
@@ -34,7 +36,8 @@ form.addEventListener('submit', function (event) {
     .then(data => {
         loading.classList.add('d-none');
         if(data.success == true){    
-            window.location.href = data.next; 
+            uploadContainer.classList.add('d-none');
+            documentUrl.innerHTML = '<a href="'+data['ipfs-url']+'"class="card-title">See the certified document</a>'
         }else{ 
             if (data.message) { 
                 window.document.getElementById("errorMessage").textContent = data.message;

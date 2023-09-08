@@ -10,6 +10,7 @@ import PyPDF2
 
 def certify(request, uploadFilePath, openai, ipfsBaseUrl, contract, user_address):
     data_response = {} 
+    requestId = request.json.get('certId', None)
     if 'file_to_certify' in session: 
         uniqueId = str(uuid.uuid4())
         filepath = session['file_to_certify'] 
@@ -26,9 +27,11 @@ def certify(request, uploadFilePath, openai, ipfsBaseUrl, contract, user_address
  
         rowhashText = ai.getDocumentInfos(file_content, openai)
         hashText = hashlib.sha256(rowhashText.encode('utf-8')).hexdigest()
-        if eth.checkIfExist(hashText, contract, user_address):
-            data_response["success"] = False
-            data_response["message"] = "The document already exits"
+        if eth.checkIfExist(hashText, contract, user_address): 
+            datas =  eth.getRecordFromBlockChain(hashText, contract, user_address) 
+            data_response["success"] = True
+            data_response["message"] = "The document is successfully certified."
+            data_response["ipfs-url"] = f"http://127.0.0.1:8080/ipfs/{datas['fileHash']}" 
             return data_response
         
         pathOfTheCertifiedDocument = os.path.join(uploadFilePath, uniqueId+"-certified.pdf")
@@ -41,6 +44,8 @@ def certify(request, uploadFilePath, openai, ipfsBaseUrl, contract, user_address
         data_response["success"] = True
         data_response["message"] = "The document is successfully certified."
         data_response["ipfs-url"] = f"http://127.0.0.1:8080/ipfs/{ipfsIDHash}"
+
+
         print(f"HASSSHH------  {ipfsIDHash}")
         return data_response 
     else:
