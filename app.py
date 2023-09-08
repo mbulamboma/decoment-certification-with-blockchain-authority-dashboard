@@ -106,6 +106,10 @@ def successPay():
 @app.route('/verify') 
 def verifyDocument():
     return render_template('pages/verify-page.html')
+    
+@app.route('/verify/<hashtext>') 
+def verifyDocumentWithHash(hashtext):
+    return render_template('pages/verify-page.html')
 
 
 @app.route('/cpanel') 
