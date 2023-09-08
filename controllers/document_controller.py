@@ -7,11 +7,12 @@ from utils import ipfs as fs
 from utils import eth 
 from utils import prompt as ai 
 import PyPDF2
+from controllers import requests_controller as reqCtrl
 
-def certify(request, uploadFilePath, openai, ipfsBaseUrl, contract, user_address):
+def certify(mysql, request, uploadFilePath, openai, ipfsBaseUrl, contract, user_address):
     data_response = {} 
     requestId = request.json.get('certId', None)
-    if 'file_to_certify' in session: 
+    if 'file_to_certify' in session and session['file_to_certify'] != None: 
         uniqueId = str(uuid.uuid4())
         filepath = session['file_to_certify'] 
         
@@ -32,6 +33,8 @@ def certify(request, uploadFilePath, openai, ipfsBaseUrl, contract, user_address
             data_response["success"] = True
             data_response["message"] = "The document is successfully certified."
             data_response["ipfs-url"] = f"http://127.0.0.1:8080/ipfs/{datas['fileHash']}" 
+            #save the document hash
+            reqCtrl.updateRequest(mysql, data_response["ipfs-url"], requestId)
             return data_response
         
         pathOfTheCertifiedDocument = os.path.join(uploadFilePath, uniqueId+"-certified.pdf")
@@ -45,8 +48,9 @@ def certify(request, uploadFilePath, openai, ipfsBaseUrl, contract, user_address
         data_response["message"] = "The document is successfully certified."
         data_response["ipfs-url"] = f"http://127.0.0.1:8080/ipfs/{ipfsIDHash}"
 
-
-        print(f"HASSSHH------  {ipfsIDHash}")
+        #save the document hash
+        reqCtrl.updateRequest(mysql, ipfsIDHash, requestId) 
+        session['file_to_certify'] =  None
         return data_response 
     else:
         data_response["success"] = False

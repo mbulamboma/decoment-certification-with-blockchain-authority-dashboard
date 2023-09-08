@@ -198,7 +198,7 @@ def certifyNow():
     try:
         if "loggedin" in session and session['loggedin'] == True:
             certId = request.json.get('certId', None)
-            rep = dCtrl.certify(request, UPLOAD_FILE_PATH, openai, IPFS_API_SERVER, contract, user_address)
+            rep = dCtrl.certify(mysql, request, UPLOAD_FILE_PATH, openai, IPFS_API_SERVER, contract, user_address)
             return jsonify(rep)
         else:
             return "bad request", 401

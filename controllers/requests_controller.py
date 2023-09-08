@@ -6,6 +6,31 @@ from flask_login import LoginManager, UserMixin, login_user, login_required
 from models import user as u
 
 
+def getTop10Request(mysql):
+    cursor = mysql.cursor()
+    query = "SELECT * FROM requests LIMIT 50"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+def getRequestById(mysql, id):
+    cursor = mysql.cursor()
+    query = "SELECT * FROM requests WHERE id = %s"
+    cursor.execute(query, (id,))
+    result = cursor.fetchall()
+    cursor.close()
+    return result[0]
+
+def getPaymentInfos(mysql, id):
+    cursor = mysql.cursor()
+    query = "SELECT * FROM payments WHERE req_id = %s"
+    cursor.execute(query, (id,))
+    result = cursor.fetchall()
+    cursor.close()
+    return result[0]
+
+
 def faculty(mysql):
     cursor = mysql.cursor()
     query = "SELECT * FROM facultes"
@@ -102,6 +127,14 @@ def addPaiement(request, mysql):
     data_response["next"] = "/success-pay"
     #return 
     return data_response
+
+
+def updateRequest(mysql, ipfsHash, req_id):
+    cursor = mysql.cursor()
+    query = "UPDATE requests SET ipfs_hash = %s WHERE id = %s;"
+    cursor.execute(query, (ipfsHash, req_id)) 
+    mysql.commit()
+    cursor.close()
 
 
 

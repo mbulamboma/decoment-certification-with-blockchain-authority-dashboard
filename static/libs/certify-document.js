@@ -15,7 +15,7 @@ form.addEventListener('submit', function (event) {
     var certId = window.document.getElementById("certId").value; 
 
     var data = {
-        "phone": certId
+        "certId": certId
     };
 
     // Send the POST request
