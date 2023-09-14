@@ -112,6 +112,18 @@ def verifyDocumentWithHash(hashtext):
     return render_template('pages/verify-page.html')
 
 
+
+@app.route('/check', methods=['POST'])
+def checkDocument():
+    try: 
+        rep = dCtrl.checkDocument(request, contract, user_address)
+        print(rep)
+        return jsonify(rep)
+    except Exception as e:
+        print("An error occurred:", e)
+        return "bad request", 401
+
+
 @app.route('/cpanel') 
 @dc.login_required
 def cpanel():

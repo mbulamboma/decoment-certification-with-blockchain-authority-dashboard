@@ -85,7 +85,7 @@ def getCurrentRequest(mysql):
     cursor.execute(query, (last_request_id,))
     result = cursor.fetchall()
     cursor.close()
-    
+    print(result)
     if len(result) > 0:
         return { 
             "document" : result[0][3],
@@ -97,6 +97,7 @@ def getCurrentRequest(mysql):
             "id" : "",
             "document" : "",
             "promotion" : "",
+            "year": ""
         }
 
 def addPaiement(request, mysql): 
@@ -164,12 +165,14 @@ def addRequest(request, mysql):
         inserted_id = cursor.lastrowid
         cursor.close()
         session['lastRequestId'] = inserted_id
+        print(inserted_id)
     else:
         last_request_id = session['lastRequestId']
         query = "UPDATE requests SET full_name = %s, student_id = %s, document_id = %s, faculty = %s, department = %s, orientation = %s, academic_year = %s, promotion = %s WHERE id = %s;"
         cursor.execute(query, (fullname, studentId, document, faculty, department, orientation, year, promotion, last_request_id)) 
         mysql.commit()
         cursor.close()
+        print(last_request_id)
 
 
     data_response["success"] = True

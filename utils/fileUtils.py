@@ -6,6 +6,7 @@ def getAbiAndContractAddr(abi_file_path):
         datas = json.load(f)
         contract_abi = datas["abi"]
         contract_address = datas["networks"]["5777"]["address"]
+        f.close()
     return contract_abi, contract_address
  
 

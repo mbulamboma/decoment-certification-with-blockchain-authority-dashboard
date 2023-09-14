@@ -1,6 +1,5 @@
 def checkIfExist(hashText, contract, user_address):
-    #get data tasks from blockchain
-    print("hash Text --- : "+hashText)
+    #get data tasks from blockchain 
     return contract.functions.documentExists(hashText).call({'from': user_address})  
 
 def getRecordFromBlockChain(hashText, contract, user_address):
